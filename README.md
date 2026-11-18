@@ -4,8 +4,13 @@
 
 ## hello web 服务
 
-`cmd/hello-web` 是一个只输出 `hello` 的最小 web 服务：访问根路径返回纯文本
-`hello`，其他路径返回 404，非 GET/HEAD 方法返回 405。
+`cmd/hello-web` 是一个只输出 `hello` 的最小 web 服务：访问根路径返回 `hello`，
+其他路径返回 404，非 GET/HEAD 方法返回 405。
+
+根路径按 `Accept` 头做内容协商：浏览器（`Accept` 含 `text/html`）会拿到一张
+自带样式的单页卡片，`curl` / 脚本等发送 `*/*` 的客户端仍然只收到纯文本
+`hello`，`Content-Type` 分别是 `text/html; charset=utf-8` 和
+`text/plain; charset=utf-8`。
 
 ### 本地启动
 
