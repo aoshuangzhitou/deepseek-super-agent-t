@@ -129,11 +129,18 @@ const helloWebPage = `<!doctype html>
     line-height: 0.95;
     font-weight: 750;
     letter-spacing: -0.05em;
-    background: linear-gradient(108deg, #ffffff 8%, #c7d2fe 46%, #67e8f9 92%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--ink);
+  }
+  /* Gradient text only where background-clip works; otherwise the solid
+     colour above keeps the wordmark readable. */
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    h1 {
+      background: linear-gradient(108deg, #ffffff 8%, #c7d2fe 46%, #67e8f9 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
   }
 
   .lede {
@@ -218,6 +225,16 @@ const helloWebPage = `<!doctype html>
       animation: none !important;
       transition: none !important;
     }
+  }
+  /* Keep text visible in high-contrast mode, where background images and
+     gradient fills are dropped. */
+  @media (forced-colors: active) {
+    h1 {
+      background: none;
+      -webkit-text-fill-color: currentColor;
+      color: CanvasText;
+    }
+    .card, .terminal { border-color: CanvasText; }
   }
 </style>
 </head>
