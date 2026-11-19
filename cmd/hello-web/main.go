@@ -23,19 +23,20 @@ const helloWebPage = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="light">
 <meta name="description" content="hello — a tiny Go web service that greets you.">
 <title>hello · go web service</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1020'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='32' font-weight='700' fill='%238b9cf6' text-anchor='middle'%3Eh%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23eef2ff'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='32' font-weight='700' fill='%234338ca' text-anchor='middle'%3Eh%3C/text%3E%3C/svg%3E">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
 
   :root {
-    --bg: #070b14;
-    --ink: #eef2ff;
-    --muted: #98a2c3;
-    --line: rgba(148, 163, 255, 0.16);
-    --cyan: #67e8f9;
+    --bg: #f6f8fd;
+    --ink: #0f172a;
+    --muted: #55617a;
+    --line: rgba(71, 85, 145, 0.16);
+    --accent: #4338ca;
+    --teal: #0e7490;
     --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   }
 
@@ -48,9 +49,9 @@ const helloWebPage = `<!doctype html>
     place-items: center;
     padding: clamp(20px, 6vw, 56px) clamp(16px, 5vw, 40px);
     background:
-      radial-gradient(1200px 600px at 12% -12%, rgba(99, 102, 241, 0.34), transparent 60%),
-      radial-gradient(900px 520px at 110% 8%, rgba(6, 182, 212, 0.18), transparent 55%),
-      radial-gradient(760px 520px at 52% 118%, rgba(168, 85, 247, 0.18), transparent 60%),
+      radial-gradient(1200px 600px at 12% -12%, rgba(99, 102, 241, 0.13), transparent 60%),
+      radial-gradient(900px 520px at 110% 8%, rgba(6, 182, 212, 0.10), transparent 55%),
+      radial-gradient(760px 520px at 52% 118%, rgba(168, 85, 247, 0.09), transparent 60%),
       var(--bg);
     color: var(--ink);
     font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -68,13 +69,13 @@ const helloWebPage = `<!doctype html>
   .glow-a {
     width: 380px; height: 380px;
     top: -120px; left: -90px;
-    background: radial-gradient(circle, rgba(129, 140, 248, 0.42), transparent 70%);
+    background: radial-gradient(circle, rgba(129, 140, 248, 0.22), transparent 70%);
     animation: drift-a 22s ease-in-out infinite alternate;
   }
   .glow-b {
     width: 320px; height: 320px;
     right: -100px; bottom: -120px;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.28), transparent 70%);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.18), transparent 70%);
     animation: drift-b 26s ease-in-out infinite alternate;
   }
 
@@ -85,11 +86,11 @@ const helloWebPage = `<!doctype html>
     padding: clamp(30px, 6vw, 56px);
     border-radius: 28px;
     border: 1px solid var(--line);
-    background: linear-gradient(180deg, rgba(30, 41, 84, 0.55), rgba(9, 14, 30, 0.68));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 255, 0.88));
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      0 40px 80px -40px rgba(2, 6, 23, 0.95),
-      0 0 0 1px rgba(2, 6, 23, 0.35);
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 36px 70px -44px rgba(30, 41, 84, 0.42),
+      0 2px 10px -6px rgba(30, 41, 84, 0.18);
     -webkit-backdrop-filter: blur(18px) saturate(120%);
     backdrop-filter: blur(18px) saturate(120%);
     animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
@@ -100,7 +101,7 @@ const helloWebPage = `<!doctype html>
     position: absolute;
     inset: 0 0 auto;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(129, 140, 248, 0.55), transparent);
   }
 
   .eyebrow {
@@ -118,8 +119,8 @@ const helloWebPage = `<!doctype html>
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #34d399;
-    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.14);
+    background: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.16);
     animation: pulse 2.6s ease-in-out infinite;
   }
 
@@ -135,7 +136,7 @@ const helloWebPage = `<!doctype html>
      colour above keeps the wordmark readable. */
   @supports ((background-clip: text) or (-webkit-background-clip: text)) {
     h1 {
-      background: linear-gradient(108deg, #ffffff 8%, #c7d2fe 46%, #67e8f9 92%);
+      background: linear-gradient(108deg, #1e1b4b 6%, #4338ca 48%, #0e7490 92%);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -166,28 +167,28 @@ const helloWebPage = `<!doctype html>
     padding: 8px 13px;
     border-radius: 999px;
     border: 1px solid var(--line);
-    background: rgba(148, 163, 255, 0.07);
+    background: rgba(99, 102, 241, 0.06);
     font-size: 12.5px;
-    color: #dbe3ff;
+    color: #334155;
   }
-  .chips code { font-family: var(--mono); font-size: 0.95em; color: var(--cyan); }
-  .chips .ok { color: #34d399; font-size: 9px; line-height: 1; }
+  .chips code { font-family: var(--mono); font-size: 0.95em; color: var(--accent); }
+  .chips .ok { color: #15803d; font-size: 9px; line-height: 1; }
 
   .terminal {
     margin: 0;
     padding: 16px 18px;
     border-radius: 16px;
-    border: 1px solid rgba(148, 163, 255, 0.12);
-    background: rgba(2, 6, 23, 0.72);
+    border: 1px solid rgba(71, 85, 145, 0.16);
+    background: #f1f5f9;
     font-family: var(--mono);
     font-size: 13.5px;
     line-height: 1.75;
-    color: #cbd5f5;
+    color: #334155;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
-  .terminal .prompt { color: var(--cyan); }
-  .terminal .out { color: #86efac; }
+  .terminal .prompt { color: var(--teal); }
+  .terminal .out { color: #15803d; }
 
   footer {
     display: flex;
@@ -198,16 +199,16 @@ const helloWebPage = `<!doctype html>
     padding-top: 18px;
     border-top: 1px solid var(--line);
     font-size: 12px;
-    color: #7c87a8;
+    color: #5c6780;
   }
-  footer code { font-family: var(--mono); color: #a9b4d6; }
+  footer code { font-family: var(--mono); color: #3f4a66; }
 
   @keyframes rise {
     from { opacity: 0; transform: translateY(14px) scale(0.985); }
     to { opacity: 1; transform: none; }
   }
   @keyframes pulse {
-    50% { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+    50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
   }
   @keyframes drift-a {
     to { transform: translate(70px, 50px) scale(1.12); }
